@@ -1,0 +1,41 @@
+function pcGlove = computepcfromglove(gloveData, avgHand, pcCoeffs)
+global PC_AVG PC_;
+if nargin < 2
+    avgHand = JERDE_AVG;
+    varargin = {JERDE_PC1, JERDE_PC2};
+end
+
+%Principal component array initialize
+nPrincipalComponents = size(varargin,2);
+pcArray = zeros(nPrincipalComponents,17);
+magnitudeArray = zeros(nPrincipalComponents,1);
+
+for pc = 1:nPrincipalComponents;
+    pcVector = varargin{pc};
+    pcMagnitude = norm(pcVector);
+    pcArray(pc,:) = pcVector ./ pcMagnitude;
+    magnitudeArray(pc,:) = pcMagnitude;
+end
+
+%Get the difference in joint angles from the average hand shape.
+%Additionally, compute projection along each of the principal components
+nTimeTicks = size(gloveData,1);
+nJoints = size(gloveData,2);
+nTrials = size(gloveData,3);
+
+pcGlove = nan(nTimeTicks,nPrincipalComponents,nTrials);
+
+for i = 1:nTimeTicks
+    for trial = 1:nTrials
+        dataDiffFromAvg = gloveData(i,:,trial) - avgHand;
+        for pc = 1:nPrincipalComponents
+            %Dot product of unit pc vector and hand shape give projection
+            pcGlove(i,pc,trial) = dot(dataDiffFromAvg,...
+                pcArray(pc,:));
+            %Divide by magnitude to get proportion to pc vector
+            pcGlove(i,pc,trial) = pcGlove(i,pc,trial)./magnitudeArray(pc,:);
+        end
+    end
+end
+
+%And voila, principal component found

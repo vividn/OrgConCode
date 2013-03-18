@@ -1,0 +1,7 @@
+function cmpplot(data,cols=2)
+p = size(data,2)
+rows = ceil(p/cols);
+for i=1:p
+    subplot(rows,cols,i)
+    plot(data(:,i)
+end
