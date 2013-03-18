@@ -1,4 +1,5 @@
 function SubjectStructure = loadsubject(subjectInitials)
+% Loads or generates a structure of a subject's data
 global DATA_DIR ANALYSIS_DIR
 if isempty(DATA_DIR)
     commonvars() %Initializes all the the global variables
