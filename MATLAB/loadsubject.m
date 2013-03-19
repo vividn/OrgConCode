@@ -1,5 +1,6 @@
 function SubjectStructure = loadsubject(subjectInitials)
 % Loads or generates a structure of a subject's data
+
 global DATA_DIR ANALYSIS_DIR
 if isempty(DATA_DIR)
     commonvars() %Initializes all the the global variables
@@ -34,7 +35,7 @@ if dataConversionNeeded
         folderName = DataFolderInfo(iExperiment).name;
 
         %Now check to make sure that the folder is an experiment folder via
-        %string scan. 'Exp_n'
+        %string scan. 'Exp1\'
         experimentNumber = sscanf(folderName,'Exp%d');
         if isempty(experimentNumber), return;end
 
