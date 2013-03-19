@@ -7,6 +7,9 @@ trialLengths = load([experimentDir 'TrialLengths']);
 timeTicks = (1:max(trialLengths))';
 
 trials = load([experimentDir 'Trials'])';
+%If a trial is repeated in the experiment, data is overwritten, but an
+%extra trial is still recorded.
+trials = unique(trials);
 
 %Dimensions of the structure components (for preallocation)
 dataDim = [max(timeTicks) max(trials)];
