@@ -44,3 +44,6 @@ Joints.WRIST = [16 17];
 % Principal Components to use as a default
 PC_AVG = importdata([ANALYSIS_DIR 'PC_AVG.mat']);
 PC_COEFFS = importdata([ANALYSIS_DIR 'PC_COEFFS.mat']);
+
+% Only use the first 3 PC's
+PC_COEFFS = PC_COEFFS(1:3,:);

@@ -40,8 +40,7 @@ for pc = 1:nPrincipalComponents
     % Repeated pc components for simultaneous dot product
     repeatedPc = repmat(pcArray(pc,:),[nTimeTicks,1,nTrials]);    
     %Dot product of unit pc vector and hand shape give projection
-    pcGlove(:,pc,:) = dot(dataDiffFromAvg,repeatedPc,2);
+    pcGlove(:, = dot(dataDiffFromAvg,repeatedPc,2);
+    %Divide by magnitude to get proportion to pc vector
+    pcGlove = pcGlove ./ pcMagnitude;
 end
-
-%Divide by magnitude to get proportion to pc vector
-pcGlove = pcGlove ./ pcMagnitude;

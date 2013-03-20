@@ -23,6 +23,9 @@ dataConversionNeeded = ~matExists || ...
     (matLastChange < programLastChange);
 
 if dataConversionNeeded
+    % Warn user that a new file is being generated
+    display(['Data file out of date or nonexistant. Generating a new file.']);
+    
     %The location where all the subject's data is stored
     subjectDataDir = [DATA_DIR subjectInitials '\Data\'];
 
@@ -39,6 +42,9 @@ if dataConversionNeeded
         experimentNumber = sscanf(folderName,'Exp%d');
         if isempty(experimentNumber), return;end
 
+        % UI update
+        display([subjectInitials, ' - Experiment ', num2str(experimentNumber)]); 
+        
         experimentDir = [subjectDataDir 'Exp' num2str(experimentNumber) '\'];
         
         %data2mat saves the data into a file once its done. If MATLAB runs
@@ -52,14 +58,19 @@ if dataConversionNeeded
             (programLastChange < experimentDataLastChange);
         
         if dataFileIsGood
+            display('Viable data file found for experiment, loading...')
             SubjectStructure(experimentNumber) = load(experimentDataFile);
         else
             %Extract all pertinent data into structure
             SubjectStructure(experimentNumber) = data2mat(experimentDir);
         end
+        display(sprintf('%s\n\n',repmat('-',1,40)));
     end
+    display('Subject Complete. Saving structure...')
     save(matFileName, 'SubjectStructure');
 else
+    display('Viable data file found. Loading...')
     % If all the data is recent and prepared just load it.
     SubjectStructure = importdata(matFileName);
 end
+display('Done.')

@@ -21,9 +21,12 @@ b = nan(gloveDim);
 [Rh Lh]= deal(struct('x',a,'y',a,'z',a,'az',a,'el',a,'roll',a,'v',a,'glove',b));
 
 
-for iTrial = trials
+for iTrial = trials    
     trialStr = num2str(iTrial);
+    display(['Trial ' num2str(iTrial)])
+    
     %%POLHEMUS FASTRAK DATA AGGREGATION%%
+    display(['  Loading fastrak data...'])
     %Data arrangement:
     % null RH(x y z az el roll) null LH(x  y  z  az el roll) null)
     % 1       2 3 4 5  6  7     8       9  10 11 12 13 14    15
@@ -51,6 +54,8 @@ for iTrial = trials
     
     
     %%CYBERGLOVE DATA AGGREGATION%%
+    display(['  Loading cyberglove data...'])
+    
     Degree.Rh = load([experimentDir 'RH_Deg' trialStr]);
     Raw.Rh = load([experimentDir 'RH_Raw' trialStr]);
     Time.Rh = load([experimentDir 'RH_Time' trialStr]);
@@ -87,16 +92,16 @@ end; % iTrial
 Rh.v = computevelocity(timeTicks,Rh.x,Rh.y,Rh.z);
 Lh.v = computevelocity(timeTicks,Lh.x,Lh.y,Lh.z);
 
-positionData = load([experimentDir 'Positions']); % Loads position markers
-positionMarkers = positionData(:,[2 3 4 9 10 11]); % RH x,y,z LH x,y,z
-
 % Computes Principal Component Scores from the glove data
+display('Computing principal component scores of all glove data...')
 Rh.glovePC = glove2pcscores(Rh.glove);
 Lh.glovePC = glove2pcscores(Lh.glove);
 
+display('Saving...')
 save([experimentDir 'Data.mat'],'experimentDir','trials','trialLengths',...
-    'timeTicks','Rh','Lh','positionMarkers');
+    'timeTicks','Rh','Lh');
 ExperimentStructure = load([experimentDir 'Data.mat']);
+display('Experiment loaded.')
 
 
 function [outTimes varargout] = deleteduplicates(inTimes,varargin)
