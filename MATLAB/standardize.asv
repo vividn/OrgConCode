@@ -1,0 +1,11 @@
+function Z = standardize(M,dim)
+%Standardizes (calculates the z-score) along a given dimension.
+%Disregards NaNs:
+%Requires function nonan, to work.
+
+
+
+if nargs <2;dim = 1;end
+avg = mean(nonan(M,dim),dim);
+stdDev = std(nonan(M,1),0,dim);
+Z = bsxfun(@rdivide,bsxfun(@minus,M,avg),stdDev);
