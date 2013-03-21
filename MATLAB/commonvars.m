@@ -4,7 +4,7 @@ function commonvars
 
 global ROOT_DIR HOME_DIR DATA_DIR ANALYSIS_DIR Joints PC_AVG PC_COEFFS
 ROOT_DIR = 'C:\OrgCon\';
-HOME_DIR = [ROOT_DIR 'MATLAB\'];
+HOME_DIR = [ROOT_DIR 'OrgConCode\MATLAB\'];
 DATA_DIR = [ROOT_DIR 'ExperimentData\'];
 ANALYSIS_DIR = [ROOT_DIR 'Analysis\'];
 
