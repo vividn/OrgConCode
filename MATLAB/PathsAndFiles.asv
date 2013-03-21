@@ -1,6 +1,0 @@
-HomeDir = 'C:\Users\Martha\Documents\MATLAB\Nate\OrgCon\';
-DataDir = 'C:\Nate\OrgCon\Experiment_Data\';
-AnalysisDir = 'C:\Nate\OrgCon\Analysis\';
-
-CGsensors = {'Thumb Rotation';'Thumb MPJ';'Thumb IPJ';'Thumb/Index Abduction';
-    'Index MPJ
