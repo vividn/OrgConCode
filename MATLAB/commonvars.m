@@ -8,6 +8,8 @@ HOME_DIR = [ROOT_DIR 'OrgConCode\MATLAB\'];
 DATA_DIR = [ROOT_DIR 'ExperimentData\'];
 ANALYSIS_DIR = [ROOT_DIR 'Analysis\'];
 
+addpath([HOME_DIR 'LongTermUse\']); %Adds subfolder to path
+
 %Joints is a structure that has information on the sensors in the
 %cyberglove.
 Joints.NAMES = ...
