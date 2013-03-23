@@ -1,26 +1,22 @@
-function cmpplot(data,ylim,cols)
+function cmpplot(data,dim)
+% cmpplot plots each matrix along a dimension on many axes using subplot
 
-if nargin < 3
-    cols = 2;
-end
+nDims = length(size(data));
 
 if nargin < 2
-    mini = min(min(min(data)));
-    maxi = max(max(max(data)));
-    rang = maxi-mini;
-    ylim = [mini-rang*.15 maxi+rang*.15];
-    if round(mini) == 0 %Special case for absolute minimum
-        ylim(1) = 0;
-    end
+    dim = nDims; %The last dimension
 end
 
-xlim = [0 size(data,1)];
+allDims = 1:nDims;
+otherDims = setdiff(allDims, dim);
 
-p = size(data,2);
+permuteData = permute(data,[dim otherDims]); %shifts splitting dim to front 
+
+cols = 2; %Number of columns in the subplot space
+
+p = size(permuteData,1);
 rows = ceil(p/cols);
 for i=1:p
     subplot(rows,cols,i)
-    plot(squeeze(data(:,i,:)))
-    set(gca,'Xlim',xlim,'YLim',ylim)
-    hold all
+    plot(squeeze(permuteData(i,:,:)))
 end
