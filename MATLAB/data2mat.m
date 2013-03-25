@@ -94,8 +94,8 @@ Lh.v = computevelocity(timeTicks,Lh.x,Lh.y,Lh.z);
 
 % Computes Principal Component Scores from the glove data
 display('Computing principal component scores of all glove data...')
-Rh.glovePC = glove2pcscores(Rh.glove);
-Lh.glovePC = glove2pcscores(Lh.glove);
+Rh.glovePC = pcscores(Rh.glove);
+Lh.glovePC = pcscores(Lh.glove);
 
 display('Saving...')
 save([experimentDir 'Data.mat'],'experimentDir','trials','trialLengths',...
