@@ -1,13 +1,13 @@
-function ExperimentStructure = data2mat(experimentDir)
-%DATA2MAT loads the raw data from the experiment directory and processes
+function SceneStructure = data2mat(sceneDir)
+%DATA2MAT loads the raw data from the scene directory and processes
 %some of it. Then it saves all the generated matrices into a file.
 %
 
-trialLengths = load([experimentDir 'TrialLengths']);
+trialLengths = load([sceneDir 'TrialLengths']);
 timeTicks = (1:max(trialLengths))';
 
-trials = load([experimentDir 'Trials'])';
-%If a trial is repeated in the experiment, data is overwritten, but an
+trials = load([sceneDir 'Trials'])';
+%If a trial is repeated in the scene, data is overwritten, but an
 %extra trial is still recorded.
 trials = unique(trials);
 
@@ -30,8 +30,8 @@ for iTrial = trials
     %Data arrangement:
     % null RH(x y z az el roll) null LH(x  y  z  az el roll) null)
     % 1       2 3 4 5  6  7     8       9  10 11 12 13 14    15
-    fastrakRaw = load([experimentDir 'Pol_Data' trialStr]);
-    fastrakTime = load([experimentDir 'Pol_Time' trialStr]);
+    fastrakRaw = load([sceneDir 'Pol_Data' trialStr]);
+    fastrakTime = load([sceneDir 'Pol_Time' trialStr]);
     
     % Trim the first 20 entries (timing issues occur when polhemus, etc.
     % first starts
@@ -56,12 +56,12 @@ for iTrial = trials
     %%CYBERGLOVE DATA AGGREGATION%%
     display(['  Loading cyberglove data...'])
     
-    Degree.Rh = load([experimentDir 'RH_Deg' trialStr]);
-    Raw.Rh = load([experimentDir 'RH_Raw' trialStr]);
-    Time.Rh = load([experimentDir 'RH_Time' trialStr]);
-    Degree.Lh = load([experimentDir 'LH_Deg' trialStr]);
-    Raw.Lh = load([experimentDir 'LH_Raw' trialStr]);
-    Time.Lh = load([experimentDir 'LH_Time' trialStr]);
+    Degree.Rh = load([sceneDir 'RH_Deg' trialStr]);
+    Raw.Rh = load([sceneDir 'RH_Raw' trialStr]);
+    Time.Rh = load([sceneDir 'RH_Time' trialStr]);
+    Degree.Lh = load([sceneDir 'LH_Deg' trialStr]);
+    Raw.Lh = load([sceneDir 'LH_Raw' trialStr]);
+    Time.Lh = load([sceneDir 'LH_Time' trialStr]);
     
     handNames = {'Rh';'Lh'};
     for i = 1:length(handNames);
@@ -98,10 +98,10 @@ Rh.glovePC = pcscores(Rh.glove);
 Lh.glovePC = pcscores(Lh.glove);
 
 display('Saving...')
-save([experimentDir 'Data.mat'],'experimentDir','trials','trialLengths',...
+save([sceneDir 'Data.mat'],'sceneDir','trials','trialLengths',...
     'timeTicks','Rh','Lh');
-ExperimentStructure = load([experimentDir 'Data.mat']);
-display('Experiment loaded.')
+SceneStructure = load([sceneDir 'Data.mat']);
+display('Scene loaded.')
 
 
 function [outTimes varargout] = deleteduplicates(inTimes,varargin)

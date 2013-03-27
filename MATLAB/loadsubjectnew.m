@@ -10,43 +10,43 @@ subjectDataDir = [DATA_DIR subjectInitials '\Data\'];
 
 %dir returns a structure of all the subfiles and folders
 DataFolderInfo = dir(subjectDataDir);
-nExperiments = size(DataFolderInfo,1);
+nScenes = size(DataFolderInfo,1);
 
-%Iterates through all the experiments in the subject's data folder
-for iExperiment = 3:nExperiments; %First two entries in dir are '.' and '..'
-    folderName = DataFolderInfo(iExperiment).name;
+%Iterates through all the scenes in the subject's data folder
+for iScene = 3:nScenes; %First two entries in dir are '.' and '..'
+    folderName = DataFolderInfo(iScene).name;
 
-    %Now check to make sure that the folder is an experiment folder via
-    %string scan. 'Exp1\'
-    experimentNumber = sscanf(folderName,'Exp%d');
-    if isempty(experimentNumber), return;end
+    %Now check to make sure that the folder is an scene folder via
+    %string scan. 'Scene1\'
+    sceneNumber = sscanf(folderName,'Scene%d');
+    if isempty(sceneNumber), return;end
 
     % UI update
-    display([subjectInitials, ' - Experiment ', num2str(experimentNumber)]); 
+    display([subjectInitials, ' - Scene ', num2str(sceneNumber)]); 
 
-    experimentDir = [subjectDataDir 'Exp' num2str(experimentNumber) '\'];
+    sceneDir = [subjectDataDir 'Scene' num2str(sceneNumber) '\'];
 
     %data2mat saves the data into a file once its done. If MATLAB runs
-    %out of memory and does not finish all experiments, can reload
-    %individual experiment data. Reloads if the experiment data was created
+    %out of memory and does not finish all scenes, can reload
+    %individual scene data. Reloads if the scene data was created
     %after the last time the structure was.
-    experimentDataFile = [experimentDir 'Data.mat'];
+    sceneDataFile = [sceneDir 'Data.mat'];
 
-    experimentDataLastChange = lastmodtime(experimentDataFile);
-    dataExists = any(experimentDataLastChange);
+    sceneDataLastChange = lastmodtime(sceneDataFile);
+    dataExists = any(sceneDataLastChange);
     
     matLastChange = lastmodtime(matFileName);
     matExists = any(matLastChange);
     
     dataFileIsGood = dataExists && ...
-        (~matExists || experimentDataLastChange > matLastChange);
+        (~matExists || sceneDataLastChange > matLastChange);
 
     if dataFileIsGood
-        display('Viable data file found for experiment, loading...')
-        SubjectStructure(experimentNumber) = load(experimentDataFile);
+        display('Viable data file found for scene, loading...')
+        SubjectStructure(sceneNumber) = load(sceneDataFile);
     else
         %Extract all pertinent data into structure from raw data
-        SubjectStructure(experimentNumber) = data2mat(experimentDir);
+        SubjectStructure(sceneNumber) = data2mat(sceneDir);
     end
     display(sprintf('%s\n\n',repmat('-',1,40)));
 end
