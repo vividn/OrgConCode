@@ -19,4 +19,5 @@ thresholdExceded = M > threshold;
 [~,firstIndex] = max(thresholdExceded,[],dim);
 
 %Last time the threshold is exceeded
-[~,lastIndex] = max(flipdim(thresholdExceded,dim),[],dim);
+[~,indicesFromEnd] = max(flipdim(thresholdExceded,dim),[],dim);
+lastIndex = size(M,dim) - indicesFromEnd;
