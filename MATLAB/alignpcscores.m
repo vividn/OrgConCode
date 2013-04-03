@@ -18,8 +18,8 @@ switch method
     case 'avg'
         newSize = round(mean(stopTrunc - startTrunc));
     otherwise
-        if isinteger(method) && isscalar(method)
-            newSize = method;
+        if isnumeric(method) && isscalar(method)
+            newSize = round(method);
         else
             error('alignpcscores:Bad method');
         end
