@@ -8,15 +8,19 @@ if nargin < 2
 end
 
 bothHands = cat(2,SceneStructure.Rh.glovePC,SceneStructure.Lh.glovePC);
-[startTrunc stopTrunc] = differentialthreshold(bothHands,0.15,1,2);
+
+nTrials = size(bothHands,3);
+nComponents = size(bothHands,2);
+
+sizeArray = min(sum(~isnan(bothHands),1),[],2);
 
 switch method
     case 'max'
-        newSize = max(stopTrunc - startTrunc);
+        newSize = max(sizeArray);
     case 'min'
-        newSize = min(stopTrunc - startTrunc);
+        newSize = min(sizeArray);
     case 'avg'
-        newSize = round(mean(stopTrunc - startTrunc));
+        newSize = round(mean(sizeArray,3));
     otherwise
         if isnumeric(method) && isscalar(method)
             newSize = round(method);
@@ -25,17 +29,11 @@ switch method
         end
 end
 
-
-nTrials = size(bothHands,3);
-nComponents = size(bothHands,2);
-
 alignedPcScores = zeros(newSize,nComponents,nTrials); %Initialize
 
 
 for iTrial = 1:nTrials
-    leftTrunc = startTrunc(iTrial);
-    rightTrunc = stopTrunc(iTrial);
-    truncatedData = bothHands(leftTrunc:rightTrunc,:,iTrial);
+    truncatedData = nonan(bothHands(:,:,iTrial));
     alignedPcScores(:,:,iTrial) = vectorstretch(truncatedData,newSize);
 end
 
