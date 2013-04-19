@@ -1,11 +1,12 @@
-function veloc = smoothdiff(M,k,f)
-%the input to this function should be a nx6x8 Matrix, where n is the number
-%used to smooth the PC data in the 'alignpcscores' function (i.e.
-%M=alignpcscores(MF3(1,scene),n) where 'scene' is the scene number 1-3)
+function veloc = smoothdiff(SceneStruc,k,f)
+%the input SceneStruc should be MF3(1,1), or MF3(1,2) or MF3(1,3)
+%use lower k (2) and higher f (199)
 
 %The output of this function is an n-1x8x2 Matrix, with veloc(:,:,1)
 %corresponding to the velocity from the right hand and veloc(:,:,2)
 %corresponding to the velocity from the left hand.
+
+M=cat(2,SceneStruc.Rh.glovePC,SceneStruc.Lh.glovePC);
 veloc=NaN(size(M,1)-1,size(M,3),2);%veloclh=[];
     for nTrial=1:size(M,3)
         
