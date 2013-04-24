@@ -35,8 +35,10 @@ for iTrial = trials
     
     % Trim the first 20 entries (timing issues occur when polhemus, etc.
     % first starts
-    fastrakRaw(1:20,:) = [];
-    fastrakTime(1:20,:) = [];
+    
+    %Taking this out for now:
+    %fastrakRaw(1:20,:) = [];
+    %fastrakTime(1:20,:) = [];
     
     % Occasionally duplicate times sneak into the data, must delete
     [fastrakTime, fastrakRaw] = deleteduplicates(fastrakTime,fastrakRaw);
@@ -67,9 +69,10 @@ for iTrial = trials
     for i = 1:length(handNames);
         hand = handNames{i};
         %Trim first 20 entries
-        Degree.(hand)(1:20,:) = [];
-        Raw.(hand)(1:20,:) = [];
-        Time.(hand)(1:20,:) = [];
+        %Taking this out right now:
+        %Degree.(hand)(1:20,:) = [];
+        %Raw.(hand)(1:20,:) = [];
+        %Time.(hand)(1:20,:) = [];
         
         % Delete any duplicate times
         [Time.(hand), Degree.(hand), Raw.(hand)] = ...
