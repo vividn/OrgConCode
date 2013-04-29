@@ -1,8 +1,10 @@
-function truncated = truncate(M,percent)
+function [truncated,values] = truncate(M,percent)
 %use output from smooth diff
 %percent is what percentage of the max you want your threshold to be (i.e.
 %0.02)
+%Values gives the values of cutofff
 newM=NaN(size(M));
+valueM=NaN(2,size(M,2),2);
 for nTrial=1:size(M,2)
     RHn=nonan(M(:,nTrial,1));
     LHn=nonan(M(:,nTrial,2));
@@ -24,6 +26,9 @@ for nTrial=1:size(M,2)
     end
     newM(:,nTrial,1)=vertcat(NaN((first_r+begnanrh)-1,1),RHn(first_r:last_r),NaN(size(M,1)-(last_r+begnanrh),1));
     newM(:,nTrial,2)=vertcat(NaN((first_l+begnanlh)-1,1),RHn(first_l:last_l),NaN(size(M,1)-(last_l+begnanlh),1));
+    valueM(:,nTrial,1)=[first_r,last_r];
+    valueM(:,nTrial,2)=[first_l,last_l];
     clear RHn LHn peak_r peak_l first_r first_l last_r last_l allnanrh allnanlh begnanrh begnanlh
 end
 truncated=newM;
+values= valueM;
