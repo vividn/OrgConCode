@@ -76,6 +76,7 @@ for iTrial = 1:nTrials
         plot(data)
         vline(indices(max(I-2,1):min(I+2,length(indices))),'k--')
         vline(C,'r-')
+        title([eventNames{iSegment} ' - ' markType(iSegment,:)])
         a = input('0=red line,+1 = one to the right, etc.');
         if isempty(a),a=0;end
         segmentTimes(iSegment,iTrial) = indices(I+a);
