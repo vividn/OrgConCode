@@ -33,12 +33,10 @@ for iTrial = trials
     fastrakRaw = load([sceneDir 'Pol_Data' trialStr]);
     fastrakTime = load([sceneDir 'Pol_Time' trialStr]);
     
-    % Trim the first 20 entries (timing issues occur when polhemus, etc.
-    % first starts
-    
-    %Taking this out for now:
-    %fastrakRaw(1:20,:) = [];
-    %fastrakTime(1:20,:) = [];
+    % Trim the first 20 entries (accuracy issues occur when fastrak
+    % first starts recording
+    fastrakRaw(1:20,:) = [];
+    fastrakTime(1:20,:) = [];
     
     % Occasionally duplicate times sneak into the data, must delete
     [fastrakTime, fastrakRaw] = deleteduplicates(fastrakTime,fastrakRaw);

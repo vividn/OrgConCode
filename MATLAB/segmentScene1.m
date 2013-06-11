@@ -23,7 +23,7 @@ markType = ['lx min';
             'ry max';
             'ry max'];
 
-approxTime = [2.2;6.2;10;14.5;19.3;22.1;26.7;32.6;39.4];
+approxTime = [2200;6200;10000;14500;19300;22100;26700;32600;39400];
 
 minDist = 2000; %For use with the parameter 'MINPEAKDISTANCE' in findpeaks
 
@@ -34,6 +34,8 @@ nTrials = size(SceneStructure.trials,2);
 % Initialize outputvariable
 segmentTimes = zeros(nSegments,nTrials);
 
+display('0=red line,+1 = one to the right, etc.')
+
 for iTrial = 1:nTrials
     
     rhXVals = SceneStructure.Rh.x(:,iTrial);
@@ -41,12 +43,11 @@ for iTrial = 1:nTrials
     lhXVals = SceneStructure.Lh.x(:,iTrial);
     lhYVals = SceneStructure.Lh.y(:,iTrial);
     
-    
-    display('0=red line,+1 = one to the right, etc.')
-    
+    meanApproxTime = mean(approxTime,2);
+        
     for iSegment = 1:nSegments
-        time = approxTime(iSegment)*1000;
-        thisEventName = eventNames(iSegment);
+        time = meanApproxTime(iSegment);
+        thisEventName = eventNames{iSegment};
         
         handDimStr = markType(iSegment,1:2);
         switch handDimStr
@@ -83,7 +84,7 @@ for iTrial = 1:nTrials
             [C,I] = closestval(indices,time);
             clf
             plot(data,'Color',plotColor)
-            vline(indices(max(I-2,1):min(I+2,length(indices))),'k--')
+            vline(indices(max(I-4,1):min(I+4,length(indices))),'k--')
             vline(C,'r-')
             title([num2str(iSegment) '. ' thisEventName ' - '...
                 markType(iSegment,:)],'fontSize',30)
@@ -93,6 +94,8 @@ for iTrial = 1:nTrials
                 minDist = a;
             end
         end
-        segmentTimes(iSegment,iTrial) = indices(I+a);
+        timePoint = indices(I+a);
+        segmentTimes(iSegment,iTrial) = timePoint;
+        approxTime(iSegment,iTrial) = timePoint; %Guessing algorithm gets better
     end
 end
