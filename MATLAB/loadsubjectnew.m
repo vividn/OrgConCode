@@ -47,6 +47,7 @@ for iScene = 3:nScenes; %First two entries in dir are '.' and '..'
     else
         %Extract all pertinent data into structure from raw data
         SubjectStructure(sceneNumber) = data2mat(sceneDir);
+        SubjectStructure(sceneNumber).name = subjectInitials;
     end
     display(sprintf('%s\n\n',repmat('-',1,40)));
 end
