@@ -98,8 +98,11 @@ display('Computing principal component scores of all glove data...')
 Rh.glovePC = pcscores(Rh.glove);
 Lh.glovePC = pcscores(Lh.glove);
 
+% Add a 'name' slot to be filled in by loadsubjectnew
+name = [];
+
 display('Saving...')
-save([sceneDir 'Data.mat'],'sceneDir','trials','trialLengths',...
+save([sceneDir 'Data.mat'],'name','sceneDir','trials','trialLengths',...
     'timeTicks','Rh','Lh');
 SceneStructure = load([sceneDir 'Data.mat']);
 display('Scene loaded.')
