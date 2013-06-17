@@ -4,7 +4,19 @@
 
 global ANALYSIS_DIR SUBJECTS;
 
-for iSubject = 1:length(SUBJECTS)
+nSubjects = length(SUBJECTS);
+formatString = cat(2,repmat('%s  ',1,nSubjects),'\n',repmat('%03d  ',1,nSubjects));
+
+display(sprintf(formatString,SUBJECTS{:},1:nSubjects));
+
+userInput = input('Start at which subject(#):');
+if isempty(userInput), userInput=1;end;
+if or(userInput < 1, userInput > nSubjects);
+    error('Bad Subject Number')
+end
+
+
+for iSubject = userInput:length(SUBJECTS)
     sub = SUBJECTS{iSubject};
     SubjectStructure = loadsubject(sub);
     variableName = [sub 'plates'];
@@ -12,6 +24,6 @@ for iSubject = 1:length(SUBJECTS)
     
     % gathers the plate data and saves it under a custom name (hence the
     % evals)
-    eval([variableName ' = platesData(SubjectStructure)'])
-    eval(['save(' fileName variableName])
+    eval([variableName ' = platesData(SubjectStructure);'])
+    eval(['save(''' fileName ''', ''' variableName ''')'])
 end

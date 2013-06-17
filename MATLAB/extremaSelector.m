@@ -1,4 +1,4 @@
-function segmentTime = extremaSelector(inputData,extremaType,guessValue,minPeakSeparation)
+function segmentTime = extremaSelector(inputData,extremaType,guessValue,minPeakSeparation,moreData)
 % extremaSelector allows the user to select from a number of extrema on
 % given data.
 %
@@ -20,6 +20,8 @@ function segmentTime = extremaSelector(inputData,extremaType,guessValue,minPeakS
 %       all found. Defaults to 0.
 % minPeakSeparation specifies the MINPEAKDISTANCE parameter in the
 %       findpeaks function. Defaults to 2000.
+% moreData is a cell array of any additional things to plot, should the
+%       user need more information to resolve ambiguity
 %
 % Output:
 % segmentTime = the index at which the selected extremum occurs. If a matrix
@@ -70,11 +72,17 @@ display('Numbers > 20 change spacing between the extrema lines [if desired extre
 
 % Number of trials to churn through
 nTrials = size(inputData,2);
+
 segmentTime = ones(1,nTrials); % Initialize output variable
+
+%Arbitrary number to signal program to display otherData
+%User can type the variable name to signal the program.
+m = 6475823;
 
 for iTrial = 1:nTrials; %iterates through the columns
     trialData = inputData(:,iTrial);
     userInput = minPeakSeparation; % Initializes user input to progress through while loop
+    showMoreData = false;
     
     while userInput > 20
         clf
@@ -82,6 +90,14 @@ for iTrial = 1:nTrials; %iterates through the columns
             plot(-trialData)
         else
             plot(trialData)
+        end
+        
+        if showMoreData
+            hold all
+            for iData = 1:length(moreData)
+                newData = moreData{iData};
+                plot(newData(:,iTrial));
+            end
         end
         
         [~,extremaIndices] = findpeaks(trialData,'MINPEAKDISTANCE',userInput);
@@ -95,10 +111,16 @@ for iTrial = 1:nTrials; %iterates through the columns
             vline(closestExtrema,'r-')
         end
         
-        %User makes selection
-        userInput = input('?:');
+        %User makes selection (if invalid will just ask again)
+        try
+            userInput = input('?:');
+        end
         if isempty(userInput)
             userInput = isObjective + 0; % 0 for subjective selection, 1 for objective
+        end
+        if userInput == m;
+            showMoreData = true;
+            userInput = minPeakSeparation; %resets the userInput
         end
     end
     

@@ -11,14 +11,31 @@ function platesDataOut = platesData(SubjectStructure)
 
 
 % The times when the plating segment begin and end can be detected in the
-% left hand y-position very easily.
+% left hand y-position very easily. The other position data matrices are
+% sent to resolve any ambiguity.
 leftHandY = SubjectStructure(1).Lh.y;
-beginTime = extremaSelector(leftHandY,'max',15000);
-endTime = extremaSelector(leftHandY,'max',20000);
+otherData = {SubjectStructure(1).Lh.x;
+             SubjectStructure(1).Rh.x;
+             SubjectStructure(1).Rh.y;};
+
+% Tell user to search for first peak
+clf
+text(.5,.5,'Identify Start of Sequence','HorizontalAlignment','center',...
+    'FontSize',38)
+pause
+beginTime = extremaSelector(leftHandY,'max',11000,2000,otherData);
+
+% Tell user to search for second peak
+clf
+text(.5,.5,'Identify End of Sequence','HorizontalAlignment','center',...
+    'FontSize',38)
+pause
+endTime = extremaSelector(leftHandY,'max',15000,2000,otherData);
 
 plateRhPc = processData(SubjectStructure(1).Rh.glovePC,beginTime,endTime);
 plateLhPc = processData(SubjectStructure(1).Lh.glovePC,beginTime,endTime);
 
+platesDataOut = cat(2,plateRhPc,plateLhPc);
 
 end %function plateData
 
