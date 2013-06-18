@@ -8,7 +8,7 @@ HOME_DIR = [ROOT_DIR 'OrgConCode\MATLAB\'];
 DATA_DIR = [ROOT_DIR 'ExperimentData\'];
 ANALYSIS_DIR = [ROOT_DIR 'Analysis\'];
 
-SUBJECTS = {'AAC','BSB','JCQ','JJT','JMS','MF3','NJF','PM'};
+SUBJECTS = {'AC','BB','JQ','JS','JT','MF','NF','PM'};
 
 %Joints is a structure that has information on the sensors in the
 %cyberglove.
