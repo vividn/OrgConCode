@@ -31,11 +31,13 @@ text(.5,.5,'Identify End of Sequence','HorizontalAlignment','center',...
     'FontSize',38)
 pause
 endTime = extremaSelector(leftHandY,'max',15000,2000,otherData);
+clf
 
 plateRhPc = processData(SubjectStructure(1).Rh.glovePC,beginTime,endTime);
 plateLhPc = processData(SubjectStructure(1).Lh.glovePC,beginTime,endTime);
 
 platesDataOut = cat(2,plateRhPc,plateLhPc);
+
 
 end %function plateData
 

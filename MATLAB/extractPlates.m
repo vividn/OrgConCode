@@ -5,7 +5,7 @@
 global ANALYSIS_DIR SUBJECTS;
 
 nSubjects = length(SUBJECTS);
-formatString = cat(2,repmat('%s  ',1,nSubjects),'\n',repmat('%03d  ',1,nSubjects));
+formatString = cat(2,repmat('%s  ',1,nSubjects),'\n',repmat('%02d  ',1,nSubjects));
 
 display(sprintf(formatString,SUBJECTS{:},1:nSubjects));
 
