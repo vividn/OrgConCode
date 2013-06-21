@@ -23,6 +23,7 @@ for iSubject = userInput:length(SUBJECTS)
     fileName = [ANALYSIS_DIR variableName '.mat'];
     
     % gathers the plate data and saves it
-    subjectPlates = platesData(SubjectStructure);
+    [subjectPlates segmentTimes] = platesData(SubjectStructure);
     savedata(subjectPlates,'plates',sub)
+    savedata(segmentTimes,'plates',sub,'Times')
 end

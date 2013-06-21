@@ -37,7 +37,7 @@ plateRhPc = processData(SubjectStructure(1).Rh.glovePC,beginTime,endTime);
 plateLhPc = processData(SubjectStructure(1).Lh.glovePC,beginTime,endTime);
 
 platesDataOut = cat(2,plateRhPc,plateLhPc);
-segmentTimes = cat(2,beginTime,endTime);
+segmentTimes = cat(1,beginTime,endTime);
 
 end %function plateData
 
