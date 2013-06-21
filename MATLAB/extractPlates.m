@@ -22,8 +22,7 @@ for iSubject = userInput:length(SUBJECTS)
     variableName = [sub 'plates'];
     fileName = [ANALYSIS_DIR variableName '.mat'];
     
-    % gathers the plate data and saves it under a custom name (hence the
-    % evals)
-    eval([variableName ' = platesData(SubjectStructure);'])
-    eval(['save(''' fileName ''', ''' variableName ''')'])
+    % gathers the plate data and saves it
+    subjectPlates = platesData(SubjectStructure);
+    savedata(subjectPlates,'plates',sub)
 end

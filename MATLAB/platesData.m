@@ -1,4 +1,4 @@
-function platesDataOut = platesData(SubjectStructure)
+function [platesDataOut, segmentTimes] = platesData(SubjectStructure)
 % Extracts all the data from when the subject sets plates on the table
 %
 % Inputs:
@@ -37,7 +37,7 @@ plateRhPc = processData(SubjectStructure(1).Rh.glovePC,beginTime,endTime);
 plateLhPc = processData(SubjectStructure(1).Lh.glovePC,beginTime,endTime);
 
 platesDataOut = cat(2,plateRhPc,plateLhPc);
-
+segmentTimes = cat(2,beginTime,endTime);
 
 end %function plateData
 
