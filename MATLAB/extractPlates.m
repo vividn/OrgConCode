@@ -1,6 +1,6 @@
 % extractPlates
 % Takes all of the subjects and extracts the plate data and saves it.
-% Save location is ANALYSIS_DIR\[SubjectName]plates.mat
+% Save location is ANALYSIS_DIR\plates\[SubjectName]plates.mat
 
 global ANALYSIS_DIR SUBJECTS;
 
@@ -23,7 +23,7 @@ for iSubject = userInput:length(SUBJECTS)
     fileName = [ANALYSIS_DIR variableName '.mat'];
     
     % gathers the plate data and saves it
-    [subjectPlates segmentTimes] = platesData(SubjectStructure);
+    [subjectPlates, segmentTimes] = platesData(SubjectStructure);
     savedata(subjectPlates,'plates',sub)
     savedata(segmentTimes,'plates',sub,'Times')
 end
