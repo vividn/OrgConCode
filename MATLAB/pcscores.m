@@ -1,4 +1,4 @@
-function pcGlove = glove2pcscores(gloveData, avgHand, pcCoeffs)
+function pcGlove = pcscores(gloveData, avgHand, pcCoeffs)
 % Calculates PC scores from glove data
 %
 % Glove data is in the form of the 3D matrix (timeTicks x Joint x Trial)

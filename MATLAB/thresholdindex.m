@@ -1,19 +1,28 @@
-function [firstIndex lastIndex] = thresholdindex(M,threshold,dim)
+function [firstLastIndex] = thresholdindex(M,threshold,dim)
 % Finds the first/last index in M where the value exceeds a threshold value
-% [firstIndex lastIndex] = thresholdindex(M,threshold)
-% first index is the first time (or times if multidimensional) where the
-% value of M exceeds the threshold along dimension dim.
+%
+% [firstLastIndex] = thresholdindex(M,threshold,dim)
+% INPUTS:
+% M: any matrix of any size
+%
+% threshold: The program finds the first and last time the function goes
+%     above this value. If it never does, it returns the very first (1) and
+%     last index of the matrix.
+%
+% dim: the time dimension. That is, the dimension which the program
+%     searches along for the threshold index.
+%
+% OUTPUTS:
+% firstLastIndex: All other dimensions being equal to M in size, dim is now
+%    of size 2. The first value is the first time the data pass over the
+%    threshold. The second is the last value. The rest of the dimensions
+%    correspond to the orginal matrix.
 
 if nargin < 3
     dim = 1;
 end
 
-%Get rid of NaN's if function nonan exists
-if which('nonan')
-    M = nonan(M,dim);
-end
-
-thresholdExceded = M > threshold;
+thresholdExceded = bsxfun(@gt,M,threshold);
 
 %First time the threshold is exceeded
 [~,firstIndex] = max(thresholdExceded,[],dim);
@@ -21,3 +30,5 @@ thresholdExceded = M > threshold;
 %Last time the threshold is exceeded
 [~,indicesFromEnd] = max(flipdim(thresholdExceded,dim),[],dim);
 lastIndex = size(M,dim) - indicesFromEnd;
+
+firstLastIndex = cat(dim,firstIndex,lastIndex);
