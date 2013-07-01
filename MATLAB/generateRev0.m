@@ -8,7 +8,7 @@ function SubjectStructure = generateRev0(subjectInitials)
 
 global DATA_DIR
 %The location where all the subject's data is stored
-subjectDataDir = [DATA_DIR subjectInitials '\Data\'];
+subjectDataDir = [DATA_DIR subjectInitials '/Data/'];
 
 %dir returns a structure of all the subfiles and folders
 DataFolderInfo = dir(subjectDataDir);
@@ -21,14 +21,14 @@ for iScene = 3:nScenes; %First two entries in dir are '.' and '..'
     folderName = DataFolderInfo(iScene).name;
 
     %Now check to make sure that the folder is an scene folder via
-    %string scan. 'Scene1\'
+    %string scan. 'Scene1/'
     sceneNumber = sscanf(folderName,'Scene%d');
     if isempty(sceneNumber), return;end
 
     % UI update
     display([subjectInitials, ' - Scene ', num2str(sceneNumber)]); 
 
-    sceneDir = [subjectDataDir 'Scene' num2str(sceneNumber) '\'];
+    sceneDir = [subjectDataDir 'Scene' num2str(sceneNumber) '/'];
 
     %data2mat saves the data into a file once its done. If MATLAB runs
     %out of memory and does not finish all scenes, can reload

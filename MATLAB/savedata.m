@@ -1,8 +1,8 @@
 function fileName = savedata(data,category,subject,subcategory)
 % Saves the specified data in the following format:
-% ANALYSIS_DIR\dataName\subjectcategory.mat
+% ANALYSIS_DIR/dataName/subjectcategory.mat
 % for example savedata(data,'plates','AB') saves the data as:
-% ANALYSIS_DIR\plates\ABplates.mat
+% ANALYSIS_DIR/plates/ABplates.mat
 % Later, when the data is loaded, it will be loaded under the same name as
 % the file (e.g., ABplates).
 %
@@ -19,7 +19,7 @@ if nargin <4
 end
 
 dataName = [subject category subcategory];
-folderName = [ANALYSIS_DIR category '\'];
+folderName = [ANALYSIS_DIR category '/'];
 fileName = [folderName dataName '.mat'];
 
 %Create folder if it doesn't exist

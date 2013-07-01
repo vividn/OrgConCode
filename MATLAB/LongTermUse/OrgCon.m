@@ -1,8 +1,8 @@
-cd C:\OrgCon\OrgConCode\MATLAB
+cd C:/OrgCon/OrgConCode/MATLAB
 commonvars %Sets up many global constants
 
 global ANALYSIS_DIR
-addpath('LongTermUse\'); %Adds subfolder to path
+addpath('LongTermUse/'); %Adds subfolder to path
 analysisFolders = genpath(ANALYSIS_DIR); %Includes all subfolders
 addpath(analysisFolders);
 

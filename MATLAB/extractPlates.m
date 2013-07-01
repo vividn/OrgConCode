@@ -1,6 +1,6 @@
 % extractPlates
 % Takes all of the subjects and extracts the plate data and saves it.
-% Save location is ANALYSIS_DIR\plates\[SubjectName]plates.mat
+% Save location is ANALYSIS_DIR/plates/[SubjectName]plates.mat
 
 global ANALYSIS_DIR SUBJECTS;
 

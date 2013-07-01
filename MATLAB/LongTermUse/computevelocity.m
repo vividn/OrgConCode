@@ -19,5 +19,3 @@ rootdimsqsum = dimsqsum.^0.5; %Sqrt
 rootdimsqsum(2:end+1,:)=rootdimsqsum(1:end,:); %shifts the matrix down one
 rootdimsqsum(1,:) = NaN; %Puts NaNs in the first row
 velocitymat = rootdimsqsum;
-    
-    

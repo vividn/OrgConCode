@@ -19,12 +19,12 @@ if strcmp(subjectInitials, 'all');
 else
 
     % Check if revision 0 exists
-    rev0FileName = [ANALYSIS_DIR '0\' subjectInitials '0' '.mat'];
+    rev0FileName = [ANALYSIS_DIR 'rev0/' subjectInitials 'rev0' '.mat'];
     rev0LastChange = lastmodtime(rev0FileName);
     rev0Exists = any(rev0LastChange);
     
     % Check if revision 1 exists
-    rev1FileName = [ANALYSIS_DIR '1\' subjectInitials '1' '.mat'];
+    rev1FileName = [ANALYSIS_DIR subjectInitials '.mat'];
     rev1LastChange = lastmodtime(rev1FileName);
     rev1Exists = any(rev1LastChange);
     

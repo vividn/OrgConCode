@@ -3,10 +3,10 @@ function commonvars
 % the entire project
 
 global ROOT_DIR HOME_DIR DATA_DIR ANALYSIS_DIR Joints PC_AVG PC_COEFFS SUBJECTS
-ROOT_DIR = 'C:\OrgCon\';
-HOME_DIR = [ROOT_DIR 'OrgConCode\MATLAB\'];
-DATA_DIR = [ROOT_DIR 'ExperimentData\'];
-ANALYSIS_DIR = [ROOT_DIR 'Analysis\'];
+ROOT_DIR = 'C:/OrgCon/';
+HOME_DIR = [ROOT_DIR 'OrgConCode/MATLAB/'];
+DATA_DIR = [ROOT_DIR 'ExperimentData/'];
+ANALYSIS_DIR = [ROOT_DIR 'Analysis/'];
 
 SUBJECTS = {'AC','BB','JQ','JS','JT','MF','NF','PM'};
 
@@ -44,8 +44,8 @@ Joints.WRIST = [16 17];
 
 
 % Principal Components to use as a default
-PC_AVG = importdata([ANALYSIS_DIR '\PC\' 'PC_AVG.mat']);
-PC_COEFFS = importdata([ANALYSIS_DIR '\PC\' 'PC_COEFFS.mat']);
+PC_AVG = importdata([ANALYSIS_DIR '/PC/' 'PC_AVG.mat']);
+PC_COEFFS = importdata([ANALYSIS_DIR '/PC/' 'PC_COEFFS.mat']);
 
 % Only use the first 3 PC's
 PC_COEFFS = PC_COEFFS(1:3,:);

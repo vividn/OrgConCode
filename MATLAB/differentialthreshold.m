@@ -1,4 +1,4 @@
-function [firstTime lastTime] = differentialthreshold(M,threshold,timeDim,avgDim)
+function [firstTime, lastTime] = differentialthreshold(M,threshold,timeDim,avgDim)
 % Takes the derivative and finds the first and last time the value
 % > threshold.
 %
@@ -29,4 +29,4 @@ else
     avgDiffM = diffM;
 end
 
-[firstTime lastTime] = thresholdindex(avgDiffM,threshold,timeDim);
+[firstTime, lastTime] = thresholdindex(avgDiffM,threshold,timeDim);
