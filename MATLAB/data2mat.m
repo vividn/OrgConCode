@@ -18,7 +18,7 @@ a = nan(dataDim); %Tempoary variables for preallocation
 b = nan(gloveDim);
 
 %Initialize structures
-[Rh Lh]= deal(struct('x',a,'y',a,'z',a,'az',a,'el',a,'roll',a,'v',a,'glove',b));
+[Rh, Lh]= deal(struct('x',a,'y',a,'z',a,'az',a,'el',a,'roll',a,'v',a,'glove',b));
 
 
 for iTrial = trials    
@@ -26,7 +26,7 @@ for iTrial = trials
     display(['Trial ' num2str(iTrial)])
     
     %%POLHEMUS FASTRAK DATA AGGREGATION%%
-    display(['  Loading fastrak data...'])
+    display('  Loading fastrak data...')
     %Data arrangement:
     % null RH(x y z az el roll) null LH(x  y  z  az el roll) null)
     % 1       2 3 4 5  6  7     8       9  10 11 12 13 14    15
@@ -54,7 +54,7 @@ for iTrial = trials
     
     
     %%CYBERGLOVE DATA AGGREGATION%%
-    display(['  Loading cyberglove data...'])
+    display('  Loading cyberglove data...')
     
     Degree.Rh = load([sceneDir 'RH_Deg' trialStr]);
     Raw.Rh = load([sceneDir 'RH_Raw' trialStr]);
@@ -89,10 +89,6 @@ for iTrial = trials
     
 end; % iTrial
 
-% calculates the velocities of the hands
-Rh.v = computevelocity(timeTicks,Rh.x,Rh.y,Rh.z);
-Lh.v = computevelocity(timeTicks,Lh.x,Lh.y,Lh.z);
-
 % Computes Principal Component Scores from the glove data
 display('Computing principal component scores of all glove data...')
 Rh.glovePC = pcscores(Rh.glove);
@@ -108,7 +104,7 @@ SceneStructure = load([sceneDir 'Data.mat']);
 display('Scene loaded.')
 
 
-function [outTimes varargout] = deleteduplicates(inTimes,varargin)
+function [outTimes, varargout] = deleteduplicates(inTimes,varargin)
 inDataArray = varargin;
 %Get indices of time duplicates and remove
 [~, timeIndex, ~] = unique(inTimes,'first');
